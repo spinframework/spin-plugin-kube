@@ -72,6 +72,7 @@ spec:
 {{- if .AzureWorkloadIdentity }}
   podLabels:
     azure.workload.identity/use: "true"
+{{- end }}
 {{- if .ServiceAccountName }}
   serviceAccountName: {{ .ServiceAccountName }}
 {{- end }}
