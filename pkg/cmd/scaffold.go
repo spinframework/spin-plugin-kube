@@ -15,6 +15,7 @@ import (
 
 type ScaffoldOptions struct {
 	autoscaler                        string
+	azureWorkloadIdentity             bool
 	configfile                        string
 	cpuLimit                          string
 	cpuRequest                        string
@@ -36,6 +37,7 @@ var scaffoldOpts = ScaffoldOptions{}
 
 type appConfig struct {
 	Autoscaler                        string
+	AzureWorkloadIdentity             bool
 	CPULimit                          string
 	CPURequest                        string
 	Executor                          string
@@ -65,6 +67,10 @@ spec:
 {{- else }}
   replicas: {{ .Replicas }}
 {{- end}}
+{{- if .AzureWorkloadIdentity }}
+  podLabels:
+    azure.workload.identity/use: "true"
+{{- end }}
 {{- if .Variables }}
   variables:
 {{- range $key, $value := .Variables }}
@@ -272,6 +278,7 @@ func scaffold(opts ScaffoldOptions) ([]byte, error) {
 		ImagePullSecrets:                  opts.imagePullSecrets,
 		Variables:                         opts.variables,
 		Components:                        opts.components,
+		AzureWorkloadIdentity:             opts.azureWorkloadIdentity,
 	}
 
 	if opts.configfile != "" {
@@ -327,6 +334,7 @@ func init() {
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.cpuRequest, "cpu-request", "", "The amount of CPU resource units requested by the application. Used to determine which node the application will run on")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.memoryLimit, "memory-limit", "", "The maximum amount of memory the application is allowed to use")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.memoryRequest, "memory-request", "", "The amount of memory requested by the application. Used to determine which node the application will run on")
+	scaffoldCmd.Flags().BoolVar(&scaffoldOpts.azureWorkloadIdentity, "azure-identity", false, "Enable Azure Workload Identity for the application")
 	scaffoldCmd.Flags().StringVarP(&scaffoldOpts.from, "from", "f", "", "Reference in the registry of the application")
 	scaffoldCmd.Flags().StringVarP(&scaffoldOpts.output, "out", "o", "", "Path to file to write manifest yaml")
 	scaffoldCmd.Flags().StringVarP(&scaffoldOpts.configfile, "runtime-config-file", "c", "", "Path to runtime config file")
