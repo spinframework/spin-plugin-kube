@@ -34,6 +34,16 @@ func TestScaffoldOutput(t *testing.T) {
 			expected: "scaffold_runtime_config.yml",
 		},
 		{
+			name: "azure identity is enabled",
+			opts: ScaffoldOptions{
+				from:                  "ghcr.io/foo/example-app:v0.1.0",
+				replicas:              2,
+				executor:              "containerd-shim-spin",
+				azureWorkloadIdentity: true,
+			},
+			expected: "azure_workload_identity.yml",
+		},
+		{
 			name: "one image pull secret is provided",
 			opts: ScaffoldOptions{
 				from:             "ghcr.io/foo/example-app:v0.1.0",
