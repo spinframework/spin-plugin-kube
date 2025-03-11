@@ -76,6 +76,16 @@ func TestScaffoldOutput(t *testing.T) {
 			expected: "service_account_name.yml",
 		},
 		{
+			name: "service account name is not provided",
+			opts: ScaffoldOptions{
+				from:               "ghcr.io/foo/example-app:v0.1.0",
+				replicas:           2,
+				executor:           "containerd-shim-spin",
+				serviceAccountName: "",
+			},
+			expected: "no_service_account_name.yml",
+		},
+		{
 			name: "service account with HPA autoscaler",
 			opts: ScaffoldOptions{
 				from:                              "ghcr.io/foo/example-app:v0.1.0",

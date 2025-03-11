@@ -341,7 +341,7 @@ func init() {
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.memoryLimit, "memory-limit", "", "The maximum amount of memory the application is allowed to use")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.memoryRequest, "memory-request", "", "The amount of memory requested by the application. Used to determine which node the application will run on")
 	scaffoldCmd.Flags().BoolVar(&scaffoldOpts.azureWorkloadIdentity, "azure-identity", false, "Enable Azure Workload Identity for the application")
-	scaffoldCmd.Flags().StringVar(&scaffoldOpts.serviceAccountName, "service-account-name", "default", "The name of the service account to use for the application")
+	scaffoldCmd.Flags().StringVar(&scaffoldOpts.serviceAccountName, "service-account-name", "", "The name of the service account to use for the application")
 	scaffoldCmd.Flags().StringVarP(&scaffoldOpts.from, "from", "f", "", "Reference in the registry of the application")
 	scaffoldCmd.Flags().StringVarP(&scaffoldOpts.output, "out", "o", "", "Path to file to write manifest yaml")
 	scaffoldCmd.Flags().StringVarP(&scaffoldOpts.configfile, "runtime-config-file", "c", "", "Path to runtime config file")
