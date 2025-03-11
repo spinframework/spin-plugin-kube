@@ -66,6 +66,42 @@ func TestScaffoldOutput(t *testing.T) {
 			expected: "multiple_image_secrets.yml",
 		},
 		{
+			name: "service account name is provided",
+			opts: ScaffoldOptions{
+				from:               "ghcr.io/foo/example-app:v0.1.0",
+				replicas:           2,
+				executor:           "containerd-shim-spin",
+				serviceAccountName: "my-service-account",
+			},
+			expected: "service_account_name.yml",
+		},
+		{
+			name: "service account name is not provided",
+			opts: ScaffoldOptions{
+				from:               "ghcr.io/foo/example-app:v0.1.0",
+				replicas:           2,
+				executor:           "containerd-shim-spin",
+				serviceAccountName: "",
+			},
+			expected: "no_service_account_name.yml",
+		},
+		{
+			name: "service account with HPA autoscaler",
+			opts: ScaffoldOptions{
+				from:                              "ghcr.io/foo/example-app:v0.1.0",
+				executor:                          "containerd-shim-spin",
+				autoscaler:                        "hpa",
+				cpuLimit:                          "100m",
+				memoryLimit:                       "128Mi",
+				replicas:                          2,
+				maxReplicas:                       3,
+				targetCPUUtilizationPercentage:    60,
+				targetMemoryUtilizationPercentage: 60,
+				serviceAccountName:                "my-service-account",
+			},
+			expected: "hpa_service_account.yml",
+		},
+		{
 			name: "HPA autoscaler support",
 			opts: ScaffoldOptions{
 				from:                              "ghcr.io/foo/example-app:v0.1.0",
