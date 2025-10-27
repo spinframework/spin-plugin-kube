@@ -17,5 +17,5 @@ func printApps(w io.Writer, apps ...spinv1alpha1.SpinApp) {
 		table.AddRow(app.Namespace, app.Name, app.Spec.Executor, fmt.Sprintf("%d/%d", app.Status.ReadyReplicas, app.Spec.Replicas))
 	}
 
-	fmt.Fprintln(w, table)
+	_, _ = fmt.Fprintln(w, table)
 }
