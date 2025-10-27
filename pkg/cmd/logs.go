@@ -37,7 +37,7 @@ var logsCmd = &cobra.Command{
 
 func init() {
 	_, streams := NewCommandFactory()
-	logOpts = logs.NewLogsOptions(streams, false)
+	logOpts = logs.NewLogsOptions(streams)
 	logOpts.AddFlags(logsCmd)
 
 	configFlags.AddFlags(logsCmd.Flags())

@@ -95,7 +95,7 @@ var connectCmd = &cobra.Command{
 		}
 
 		go func() {
-			logOpts = logs.NewLogsOptions(streams, false)
+			logOpts = logs.NewLogsOptions(streams)
 			logOpts.Follow = true
 
 			lccmd := logs.NewCmdLogs(factory, streams)
