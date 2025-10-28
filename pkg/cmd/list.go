@@ -17,9 +17,7 @@ var listCmd = &cobra.Command{
 			return err
 		}
 
-		printApps(os.Stdout, appsResp.Items...)
-
-		return nil
+		return printApps(os.Stdout, appsResp.Items...)
 	},
 }
 
