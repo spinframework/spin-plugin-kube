@@ -198,9 +198,9 @@ var scaffoldCmd = &cobra.Command{
 
 		}
 
-		_, _ = fmt.Fprint(os.Stdout, string(content))
+		_, err = fmt.Fprint(os.Stdout, string(content))
 
-		return nil
+		return err
 	},
 }
 

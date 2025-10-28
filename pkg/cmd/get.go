@@ -32,8 +32,7 @@ var getCmd = &cobra.Command{
 			return err
 		}
 
-		printApps(os.Stdout, app)
-		return nil
+		return printApps(os.Stdout, app)
 	},
 }
 

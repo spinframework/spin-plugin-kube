@@ -8,7 +8,7 @@ import (
 	spinv1alpha1 "github.com/spinkube/spin-operator/api/v1alpha1"
 )
 
-func printApps(w io.Writer, apps ...spinv1alpha1.SpinApp) {
+func printApps(w io.Writer, apps ...spinv1alpha1.SpinApp) error {
 	table := uitable.New()
 	table.MaxColWidth = 50
 	table.AddRow("NAMESPACE", "NAME", "EXECUTOR", "READY")
@@ -17,5 +17,6 @@ func printApps(w io.Writer, apps ...spinv1alpha1.SpinApp) {
 		table.AddRow(app.Namespace, app.Name, app.Spec.Executor, fmt.Sprintf("%d/%d", app.Status.ReadyReplicas, app.Spec.Replicas))
 	}
 
-	_, _ = fmt.Fprintln(w, table)
+	_, err := fmt.Fprintln(w, table)
+	return err
 }
