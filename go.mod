@@ -7,7 +7,7 @@ require (
 	github.com/novln/docker-parser v1.0.0
 	github.com/pelletier/go-toml/v2 v2.2.4
 	github.com/spf13/cobra v1.10.1
-	github.com/spf13/pflag v1.0.9
+	github.com/spf13/pflag v1.0.10
 	github.com/spinkube/spin-operator v0.6.1
 	github.com/stretchr/testify v1.11.1
 	k8s.io/api v0.34.1
@@ -15,7 +15,7 @@ require (
 	k8s.io/cli-runtime v0.34.1
 	k8s.io/client-go v0.34.1
 	k8s.io/kubectl v0.34.1
-	sigs.k8s.io/controller-runtime v0.21.0
+	sigs.k8s.io/controller-runtime v0.22.4
 )
 
 require (
