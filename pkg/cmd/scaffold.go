@@ -188,7 +188,7 @@ var scaffoldCmd = &cobra.Command{
 		}
 
 		if scaffoldOpts.output != "" {
-			err = os.WriteFile(scaffoldOpts.output, content, 0600)
+			err = os.WriteFile(scaffoldOpts.output, content, 0o600)
 			if err != nil {
 				return err
 			}
@@ -335,7 +335,7 @@ func init() {
 	scaffoldCmd.Flags().Int32Var(&scaffoldOpts.targetCPUUtilizationPercentage, "autoscaler-target-cpu-utilization", 60, "The target CPU utilization percentage to maintain across all pods")
 	scaffoldCmd.Flags().Int32Var(&scaffoldOpts.targetMemoryUtilizationPercentage, "autoscaler-target-memory-utilization", 60, "The target memory utilization percentage to maintain across all pods")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.autoscaler, "autoscaler", "", "The autoscaler to use. Valid values are 'hpa' and 'keda'")
-	scaffoldCmd.Flags().StringVar(&scaffoldOpts.executor, "executor", "containerd-shim-spin", "The executor used to run the application")
+	scaffoldCmd.Flags().StringVar(&scaffoldOpts.executor, "executor", defaultSpinAppExecutor, "The executor used to run the application")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.cpuLimit, "cpu-limit", "", "The maximum amount of CPU resource units the application is allowed to use")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.cpuRequest, "cpu-request", "", "The amount of CPU resource units requested by the application. Used to determine which node the application will run on")
 	scaffoldCmd.Flags().StringVar(&scaffoldOpts.memoryLimit, "memory-limit", "", "The maximum amount of memory the application is allowed to use")

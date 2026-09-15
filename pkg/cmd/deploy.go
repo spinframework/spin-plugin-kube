@@ -13,15 +13,15 @@ import (
 )
 
 var (
-	artifact string
-	replicas int32
-	dryRun   bool
+	artifact        string
+	replicas        int32
+	dryRun          bool
+	spinAppExecutor string
 )
 
 var deployCmd = &cobra.Command{
-	Use:    "deploy",
-	Short:  "Deploy application to Kubernetes",
-	Hidden: isExperimentalFlagNotSet,
+	Use:   "deploy",
+	Short: "Deploy application to Kubernetes",
 	RunE: func(_ *cobra.Command, _ []string) error {
 		name, err := getNameFromImageReference(artifact)
 		if err != nil {
@@ -40,7 +40,7 @@ var deployCmd = &cobra.Command{
 			Spec: spinv1alpha1.SpinAppSpec{
 				Replicas: replicas,
 				Image:    artifact,
-				Executor: "containerd-shim-spin",
+				Executor: spinAppExecutor,
 			},
 		}
 
@@ -56,15 +56,16 @@ var deployCmd = &cobra.Command{
 			return err
 		}
 
-		fmt.Printf("spinapp.spin.fermyon.com/%s configured\n", name)
+		fmt.Printf("spinapp.core.spinkube.dev/%s created\n", name)
 		return nil
 	},
 }
 
 func init() {
-	deployCmd.Flags().BoolVar(&dryRun, "dry-run", false, "only print the kubernetes manifest without deploying")
 	deployCmd.Flags().Int32VarP(&replicas, "replicas", "r", 2, "Number of replicas for the application")
 	deployCmd.Flags().StringVarP(&artifact, "from", "f", "", "Reference in the registry of the application")
+	deployCmd.Flags().StringVar(&spinAppExecutor, "executor", defaultSpinAppExecutor, "The executor used to run the application")
+	deployCmd.Flags().BoolVar(&dryRun, "dry-run", false, "only print the kubernetes manifest without deploying")
 
 	if err := deployCmd.MarkFlagRequired("from"); err != nil {
 		log.Fatal(err)

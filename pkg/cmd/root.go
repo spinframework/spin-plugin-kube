@@ -12,6 +12,11 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth" // required for k8s client auth
 )
 
+// global constants
+const (
+	defaultSpinAppExecutor = "containerd-shim-spin"
+)
+
 // global variables available to all sub-commands
 var (
 	appNameFromCurrentDirContext = ""
